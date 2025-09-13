@@ -8,9 +8,6 @@ dependencies:
   '@tailwindcss/vite':
     specifier: ^4.1.13
     version: 4.1.13(vite@7.1.5)
-  lucide:
-    specifier: ^0.544.0
-    version: 0.544.0
   lucide-react:
     specifier: ^0.544.0
     version: 0.544.0(react@19.1.1)
@@ -1791,10 +1788,6 @@ packages:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
     dependencies:
       react: 19.1.1
-    dev: false
-
-  /lucide@0.544.0:
-    resolution: {integrity: sha512-U5ORwr5z9Sx7bNTDFaW55RbjVdQEnAcT3vws9uz3vRT1G4XXJUDAhRZdxhFoIyHEvjmTkzzlEhjSLYM5n4mb5w==}
     dev: false
 
   /magic-string@0.30.19:
