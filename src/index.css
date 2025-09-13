@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .neu {
+    margin-bottom: -3px !important;
+    margin-right: -3px !important;
+    border-width: 1px !important;
+    border-color: var(--color-foreground, #fff) !important;
+    box-shadow: 3px 3px 0px 0px #fff !important;
+  }
+  .neu-presssed {
+    translate: 2.5px 2.5px;
+    box-shadow: 1px 1px 0px 0px #fff !important;
+  }
+  .neu-active:active {
+    translate: 2.5px 2.5px;
+    box-shadow: 1px 1px 0px 0px #fff !important;
+  }
+  .neu-focus:focus-visible {
+    translate: 2.5px 2.5px;
+    box-shadow: 1px 1px 0px 0px #fff !important;
+  }
+
+  .primary-text {
+    @apply bg-linear-to-b from-teal-400 to-indigo-500 bg-clip-text text-transparent;
+  }
+
+  .primary-bg {
+    @apply bg-linear-to-b from-teal-400 to-indigo-500 text-white;
+  }
+  .primary-border {
+    background: linear-gradient(#242424, #242424) padding-box,
+      linear-gradient(to bottom, #00d5be, #6366f1) border-box;
+    border: 3px dotted transparent;
+  }
+  .primary-btn {
+    @apply px-6 py-2 rounded-md hover:opacity-90 transition duration-300 ease-in-out cursor-pointer font-semibold;
+  }
+}
