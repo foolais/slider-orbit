@@ -16,7 +16,7 @@ const MediaUploader = ({ id }: { id: number }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [isImageLooping, setIsImageLooping] = useState(true);
+  const [isImageLooping, setIsImageLooping] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -29,7 +29,10 @@ const MediaUploader = ({ id }: { id: number }) => {
     const currentMedia = item.media[currentIndex];
     if (!currentMedia) return;
 
-    if (isPlaying && currentMedia.type === "image") {
+    if (
+      isPlaying &&
+      (currentMedia.type === "image" || currentMedia.type === "gif")
+    ) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => {
           if (prev + 1 >= item.media.length) {
@@ -65,7 +68,14 @@ const MediaUploader = ({ id }: { id: number }) => {
 
     Array.from(files).forEach((file) => {
       const url = URL.createObjectURL(file);
-      const type = file.type.startsWith("video") ? "video" : "image";
+      let type: "video" | "image" | "gif" = "image";
+
+      if (file.type.startsWith("video")) {
+        type = "video";
+      } else if (file.type === "image/gif") {
+        type = "gif";
+      }
+
       addMediaToGrid(id, { type, url });
     });
   };
@@ -173,7 +183,7 @@ const MediaUploader = ({ id }: { id: number }) => {
             Randomize
           </button>
 
-          {media?.type === "image" && (
+          {(media?.type === "image" || media?.type === "gif") && (
             <button
               className="bg-yellow-500 px-3 py-1 rounded flex items-center gap-2 cursor-pointer"
               onClick={(e) => {

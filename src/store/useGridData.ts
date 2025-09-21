@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 type Media = {
-  type: "image" | "video";
+  type: "image" | "video" | "gif";
   url: string;
 };
 
