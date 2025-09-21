@@ -16,6 +16,7 @@ const MediaUploader = ({ id }: { id: number }) => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isImageLooping, setIsImageLooping] = useState(true);
   const [isLooping, setIsLooping] = useState(false);
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -30,8 +31,13 @@ const MediaUploader = ({ id }: { id: number }) => {
 
     if (isPlaying && currentMedia.type === "image") {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % item.media.length);
-      }, 2000);
+        setCurrentIndex((prev) => {
+          if (prev + 1 >= item.media.length) {
+            return isImageLooping ? 0 : prev;
+          }
+          return prev + 1;
+        });
+      }, 3000);
     } else if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -39,7 +45,7 @@ const MediaUploader = ({ id }: { id: number }) => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isPlaying, item, currentIndex]);
+  }, [isPlaying, item, currentIndex, isImageLooping]);
 
   // Control video play/pause
   useEffect(() => {
@@ -166,6 +172,19 @@ const MediaUploader = ({ id }: { id: number }) => {
             <Shuffle size={16} />
             Randomize
           </button>
+
+          {media?.type === "image" && (
+            <button
+              className="bg-yellow-500 px-3 py-1 rounded flex items-center gap-2 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsImageLooping((prev) => !prev);
+              }}
+            >
+              <RefreshCcw size={16} />
+              {isImageLooping ? "Unloop Images" : "Loop Images"}
+            </button>
+          )}
 
           {media?.type === "video" && (
             <button
