@@ -39,12 +39,14 @@ const useGridData = create<GridStore>((set) => ({
       ),
     })),
 
-  removeMediaFromGrid: (id) =>
-    set((state) => ({
-      gridData: state.gridData.map((item) =>
-        item.id === id ? { ...item, media: [] } : item
-      ),
-    })),
+ removeMediaFromGrid: (id, index) =>
+  set((state) => ({
+    gridData: state.gridData.map((item) =>
+      item.id === id
+        ? { ...item, media: item.media.filter((_, i) => i !== index) }
+        : item
+    ),
+  })),
   randomizeMedia: (id) =>
     set((state) => ({
       gridData: state.gridData.map((item) =>
